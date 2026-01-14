@@ -40,10 +40,10 @@ wp plugin activate pw-wp-email-failure-discord-alerts
 
 ```bash
 # Set the Discord webhook URL
-wp option update mail_logger_discord_webhook "https://discord.com/api/webhooks/YOUR_WEBHOOK_URL"
+wp option update pw_alerting_discord_webhook "https://discord.com/api/webhooks/YOUR_WEBHOOK_URL"
 
 # Verify it was set correctly
-wp option get mail_logger_discord_webhook
+wp option get pw_alerting_discord_webhook
 ```
 
 ### Additional Useful Commands
@@ -64,7 +64,7 @@ wp db query "SELECT * FROM wp_pw_alerting_mail_log ORDER BY created_at DESC LIMI
 wp db query "TRUNCATE TABLE wp_pw_alerting_mail_log;"
 
 # Delete the Discord webhook configuration
-wp option delete mail_logger_discord_webhook
+wp option delete pw_alerting_discord_webhook
 
 # Uninstall the plugin
 wp plugin deactivate pw-wp-email-failure-discord-alerts
@@ -85,7 +85,7 @@ echo "Installing PW Mail Logger..."
 wp plugin install https://github.com/presswizards/pw-wp-email-failure-discord-alerts/archive/refs/heads/main.zip --activate
 
 echo "Configuring Discord webhook..."
-wp option update mail_logger_discord_webhook "$DISCORD_WEBHOOK"
+wp option update pw_alerting_discord_webhook "$DISCORD_WEBHOOK"
 
 echo "Testing configuration..."
 wp option get mail_logger_discord_webhook
@@ -127,7 +127,7 @@ This plugin is designed for:
 
 ## Database
 
-The plugin creates a custom table `wp_mail_log` to store email records. The table includes:
+The plugin creates a custom table `prefix` . `pw_alerting_mail_log` to store email records. The table includes:
 
 - Email recipient(s)
 - Subject line

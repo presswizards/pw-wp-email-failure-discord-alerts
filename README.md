@@ -21,7 +21,79 @@ This plugin provides comprehensive email monitoring for WordPress sites using th
 3. Activate the plugin through the 'Plugins' menu in WordPress
 4. Navigate to Tools → PW Mail Alerts to configure settings
 
-## Configuration
+## WP CLI Useage
+
+You can install and configure this plugin via WP-CLI. Here are the commands:
+
+### Install & Activate from GitHub
+
+```bash
+# Install directly from the ZIP file
+wp plugin install https://github.com/presswizards/pw-wp-email-failure-discord-alerts/archive/refs/heads/main.zip --activate
+
+# Or if you want to do it in separate steps:
+wp plugin install https://github.com/presswizards/pw-wp-email-failure-discord-alerts/archive/refs/heads/main.zip
+wp plugin activate pw-wp-email-failure-discord-alerts
+```
+
+### Configure Discord Webhook via CLI
+
+```bash
+# Set the Discord webhook URL
+wp option update mail_logger_discord_webhook "https://discord.com/api/webhooks/YOUR_WEBHOOK_URL"
+
+# Verify it was set correctly
+wp option get mail_logger_discord_webhook
+```
+
+### Additional Useful Commands
+
+```bash
+# Check if plugin is active
+wp plugin status pw-wp-email-failure-discord-alerts
+
+# Send a test email (requires valid email address)
+wp eval 'wp_mail("test@example.com", "Test from WP-CLI", "This is a test email");'
+
+# View recent email logs
+wp db query "SELECT * FROM wp_mail_log ORDER BY created_at DESC LIMIT 10;"
+
+# Clear all email logs
+wp db query "TRUNCATE TABLE wp_mail_log;"
+
+# Delete the Discord webhook configuration
+wp option delete mail_logger_discord_webhook
+
+# Uninstall the plugin
+wp plugin deactivate pw-wp-email-failure-discord-alerts
+wp plugin delete pw-wp-email-failure-discord-alerts
+```
+
+### Automated Setup Script
+
+You could create a setup script like this:
+
+```bash
+#!/bin/bash
+# setup-mail-logger.sh
+
+DISCORD_WEBHOOK="https://discord.com/api/webhooks/YOUR_WEBHOOK_URL"
+
+echo "Installing PW Mail Logger..."
+wp plugin install https://github.com/presswizards/pw-wp-email-failure-discord-alerts/archive/refs/heads/main.zip --activate
+
+echo "Configuring Discord webhook..."
+wp option update mail_logger_discord_webhook "$DISCORD_WEBHOOK"
+
+echo "Testing configuration..."
+wp option get mail_logger_discord_webhook
+
+echo "Setup complete!"
+```
+
+This makes it really easy to deploy across multiple sites or include in your site provisioning scripts.
+
+## WP Configuration
 
 ### Discord Webhook Setup
 

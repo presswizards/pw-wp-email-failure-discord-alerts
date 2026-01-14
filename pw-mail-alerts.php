@@ -14,7 +14,7 @@ class Mail_Logger_Discord {
     
     public function __construct() {
         global $wpdb;
-        $this->table_name = $wpdb->prefix . 'mail_log';
+        $this->table_name = $wpdb->prefix . 'pw_alerting_mail_log';
         
         register_activation_hook(__FILE__, [$this, 'activate']);
         add_action('admin_menu', [$this, 'add_admin_menu']);

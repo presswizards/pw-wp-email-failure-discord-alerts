@@ -88,7 +88,7 @@ class Mail_Logger_Discord {
     }
     
     private function send_discord_alert($to, $subject, $error) {
-        $webhook_url = get_option('mail_logger_discord_webhook', '');
+        $webhook_url = get_option('pw_alerting_discord_webhook', '');
         
         if (empty($webhook_url)) return;
         
@@ -127,7 +127,7 @@ class Mail_Logger_Discord {
         
         if (isset($_POST['discord_webhook'])) {
             check_admin_referer('mail_logger_settings');
-            update_option('mail_logger_discord_webhook', sanitize_text_field($_POST['discord_webhook']));
+            update_option('pw_alerting_discord_webhook', sanitize_text_field($_POST['discord_webhook']));
             echo '<div class="notice notice-success"><p>Settings saved!</p></div>';
         }
         
@@ -158,7 +158,7 @@ class Mail_Logger_Discord {
         
         if (isset($_POST['test_discord'])) {
             check_admin_referer('mail_logger_test_discord');
-            $webhook = get_option('mail_logger_discord_webhook', '');
+            $webhook = get_option('pw_alerting_discord_webhook', '');
             if (empty($webhook)) {
                 echo '<div class="notice notice-error"><p>Please configure a Discord webhook URL first.</p></div>';
             } else {
@@ -175,7 +175,7 @@ class Mail_Logger_Discord {
             }
         }
         
-        $webhook = get_option('mail_logger_discord_webhook', '');
+        $webhook = get_option('pw_alerting_discord_webhook', '');
         $logs = $wpdb->get_results("SELECT * FROM {$this->table_name} ORDER BY created_at DESC LIMIT 100");
         ?>
         <div class="wrap">

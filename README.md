@@ -48,6 +48,8 @@ wp option get mail_logger_discord_webhook
 
 ### Additional Useful Commands
 
+(it is assuming wp_ is your prefix, change as needed)
+
 ```bash
 # Check if plugin is active
 wp plugin status pw-wp-email-failure-discord-alerts
@@ -56,10 +58,10 @@ wp plugin status pw-wp-email-failure-discord-alerts
 wp eval 'wp_mail("test@example.com", "Test from WP-CLI", "This is a test email");'
 
 # View recent email logs
-wp db query "SELECT * FROM wp_mail_log ORDER BY created_at DESC LIMIT 10;"
+wp db query "SELECT * FROM wp_pw_alerting_mail_log ORDER BY created_at DESC LIMIT 10;"
 
 # Clear all email logs
-wp db query "TRUNCATE TABLE wp_mail_log;"
+wp db query "TRUNCATE TABLE wp_pw_alerting_mail_log;"
 
 # Delete the Discord webhook configuration
 wp option delete mail_logger_discord_webhook
